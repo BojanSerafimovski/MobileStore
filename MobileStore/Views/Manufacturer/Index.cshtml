@@ -1,0 +1,47 @@
+﻿@*Model*@
+@model IEnumerable<Manufacturer>
+
+@{
+    ViewData["Title"] = "List of Manufacturers";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.PictureUrl)</th>
+                    <th>@Html.DisplayNameFor(model => model.ManufacturerName)</th>
+                    <th>@Html.DisplayNameFor(model => model.ManufacturerBiography)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="align-middle">
+                        <img src="@item.PictureUrl" alt="@item.ManufacturerName" style="max-width: 150px" />
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.ManufacturerName)
+                    </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.ManufacturerBiography)
+                    </td>
+                    <td class="align-middle">
+                        <a class="btn btn-outline-info"><i class="bi bi-pencil-square"></i>Details </a>
+                        <a class="btn btn-outline-primary"><i class="bi bi-eye"></i>Edit </a>
+                        <a class="btn btn-danger text-white"><i class="bi bi-trash"></i>Delete </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@*HTML*@
