@@ -17,6 +17,12 @@ namespace MobileStore.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<Mobile>()
+            //    .HasOne(p => p.Manufacturer)
+            //    .WithMany(b => b.Mobiles)
+            //    .HasForeignKey("ManufacturerId")
+            //    .IsRequired()
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Mobile> Mobiles { get; set; }

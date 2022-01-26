@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MobileStore.Data;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace MobileStore.Controllers
 
         public IActionResult Index()
         {
-            var allMobiles = _context.Mobiles.ToList();
+            var allMobiles = _context.Mobiles.Include(x => x.Manufacturer).ToList();
             return View(allMobiles);
         }
     }

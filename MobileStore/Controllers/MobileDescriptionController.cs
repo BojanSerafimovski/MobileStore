@@ -19,7 +19,7 @@ namespace MobileStore.Controllers
 
         public async Task <IActionResult> Index()
         {
-            var allDescriptions = await _context.MobileDescriptions.ToListAsync();
+            var allDescriptions = await _context.Mobiles.Include(x => x.Description).ToListAsync();
             return View(allDescriptions);
         }
     }

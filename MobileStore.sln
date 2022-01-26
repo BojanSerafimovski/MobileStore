@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileStore", "MobileStore\MobileStore.csproj", "{B898251B-BC72-4306-AE77-65FFA270F4BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileStore", "MobileStore\MobileStore.csproj", "{B898251B-BC72-4306-AE77-65FFA270F4BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{913FFA99-D8FB-40E4-850E-A4A0A104E78C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{7651C7E9-61E2-44D2-BC5A-10354326AD84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{B39BC22D-3344-4EEE-BB7A-230BDDE86987}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +21,17 @@ Global
 		{B898251B-BC72-4306-AE77-65FFA270F4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B898251B-BC72-4306-AE77-65FFA270F4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B898251B-BC72-4306-AE77-65FFA270F4BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{913FFA99-D8FB-40E4-850E-A4A0A104E78C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{913FFA99-D8FB-40E4-850E-A4A0A104E78C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{913FFA99-D8FB-40E4-850E-A4A0A104E78C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{913FFA99-D8FB-40E4-850E-A4A0A104E78C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B898251B-BC72-4306-AE77-65FFA270F4BB} = {7651C7E9-61E2-44D2-BC5A-10354326AD84}
+		{913FFA99-D8FB-40E4-850E-A4A0A104E78C} = {B39BC22D-3344-4EEE-BB7A-230BDDE86987}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9DB76A4D-DFC5-428B-A0E4-F517B755C99A}

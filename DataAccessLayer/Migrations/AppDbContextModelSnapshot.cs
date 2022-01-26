@@ -47,10 +47,13 @@ namespace MobileStore.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("ManufactureDate")
+                    b.Property<DateTime>("ManufactureDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("ManufacturerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MobileDescriptionId")
                         .HasColumnType("int");
 
                     b.Property<string>("MobileImage")
@@ -66,6 +69,8 @@ namespace MobileStore.Migrations
 
                     b.HasIndex("ManufacturerId");
 
+                    b.HasIndex("MobileDescriptionId");
+
                     b.ToTable("Mobiles");
                 });
 
@@ -79,12 +84,7 @@ namespace MobileStore.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MobileId")
-                        .HasColumnType("int");
-
                     b.HasKey("MobileDescriptionId");
-
-                    b.HasIndex("MobileId");
 
                     b.ToTable("MobileDescriptions");
                 });
@@ -95,16 +95,13 @@ namespace MobileStore.Migrations
                         .WithMany("Mobiles")
                         .HasForeignKey("ManufacturerId");
 
-                    b.Navigation("Manufacturer");
-                });
-
-            modelBuilder.Entity("MobileStore.Models.MobileDescription", b =>
-                {
-                    b.HasOne("MobileStore.Models.Mobile", "Mobile")
+                    b.HasOne("MobileStore.Models.MobileDescription", "Description")
                         .WithMany()
-                        .HasForeignKey("MobileId");
+                        .HasForeignKey("MobileDescriptionId");
 
-                    b.Navigation("Mobile");
+                    b.Navigation("Description");
+
+                    b.Navigation("Manufacturer");
                 });
 
             modelBuilder.Entity("MobileStore.Models.Manufacturer", b =>

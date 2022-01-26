@@ -13,6 +13,7 @@ namespace MobileStore.Models
         public int MobileId { get; set; }
         [Display(Name = "Model")]
         public string MobileName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         [Display(Name = "Launch Date")]
         public DateTime ManufactureDate { get; set; }
         [Display(Name = "Price")]
@@ -24,5 +25,7 @@ namespace MobileStore.Models
         public int? ManufacturerId { get; set; }
         public Manufacturer Manufacturer { get; set; }
 
+        public int? MobileDescriptionId { get; set; }
+        public MobileDescription Description { get; set; }
     }
 }

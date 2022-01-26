@@ -81,17 +81,14 @@ namespace MobileStore.Data
                     {
                         new MobileDescription()
                         {
-                            MobileId = 1,
                             Description = "Huawei P30 Lite mobile was launched in March, 2019."
                         },
                         new MobileDescription()
                         {
-                            MobileId = 2,
                             Description = "Iphone 12 mobile was launched in October, 2020."
                         },
                         new MobileDescription()
                         {
-                            MobileId = 3,
                             Description = "Huawei P40 mobile was launched in March, 2020."
                         }
                     });

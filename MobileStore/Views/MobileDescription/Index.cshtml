@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MobileDescription>
+﻿@model IEnumerable<Mobile>
 
 @{
     ViewData["Title"] = "List of Descriptions";
@@ -9,9 +9,9 @@
         <table class="table">
             <thead>
                 <tr class="text-center">
-                    <th>@Html.DisplayNameFor(model => model.Mobile.MobileName)</th>
-                    <th>@Html.DisplayNameFor(model => model.Mobile.ManufactureDate)</th>
-                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <th>@Html.DisplayNameFor(model => model.MobileName)</th>
+                    <th>@Html.DisplayNameFor(model => model.ManufactureDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.Description.Description)</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -20,13 +20,14 @@
                 {
                     <tr>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.Mobile.MobileName)
+                            
+                            @Html.DisplayFor(modelItem => item.MobileName)
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.Mobile.ManufactureDate)
+                            @Html.DisplayFor(modelItem => item.ManufactureDate)
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.Description)
+                            @Html.DisplayFor(modelItem => item.Description.Description)
                         </td>
                         <td class="align-middle">
                             <a class="btn btn-outline-info"><i class="bi bi-pencil-square"></i>Details </a>
