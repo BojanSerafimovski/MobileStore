@@ -10,44 +10,56 @@
 @*Write Code*@
 
 <div class="row">
-    <div class="col-md-8 offset-md-2">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.MobileImage)</th>
-                    <th>@Html.DisplayNameFor(model => model.MobileName)</th>
-                    <th>@Html.DisplayNameFor(model => model.MobilePrice)</th>
-                    <th>@Html.DisplayNameFor(model => model.Manufacturer.ManufacturerName)</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class="align-middle">
-                            <img src="@item.MobileImage" alt="@item.MobileName" style="max-width: 200px" />
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.MobileName)
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.MobilePrice).00&euro;
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.Manufacturer.ManufacturerName)
-                        </td>
-                        <td class="align-middle">
-                            <a class="btn btn-outline-info"><i class="bi bi-pencil-square"></i>Details </a>
-                            <a class="btn btn-outline-primary"><i class="bi bi-eye"></i>Edit </a>
-                            <a class="btn btn-danger text-white"><i class="bi bi-trash"></i>Delete </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-            <tr>
-                <td></td>
-            </tr>
-        </table>
-    </div>
+   @foreach (var item in Model)
+   {
+       <div class="col-md-4 col-xs-6 border-primary mb-3">
+           <div class="card mb-3" style="max-width: 540px;">
+               <div class="row g-0">
+                   <div class="col-md-12">
+                       <div class="card-header text-white bg-info">
+                           <p class="card-text">
+                               <h5 class="card-title">
+                                   @*Populating the Mobile Name*@
+                                   @item.MobileName
+                                   <a class="text-white float-right"><i class="bi bi-pencil-square"></i></a>
+                               </h5>
+                           </p>
+                       </div>
+                   </div>
+                   <div class="col-md-6">
+                       @*Populating the image division for the mobiles*@
+                       <img src="@item.MobileImage" width="100%" alt="@item.MobileName" />
+                   </div>
+                   <div class="col-md-6">
+                       <div class="card-body">
+                           @*Populating the data from the database*@
+                           <p class="card-text">@item.Description.Description</p>
+                           <p class="card-text"><strong>Price:</strong> @item.MobilePrice.00&euro;</p>
+                           <p class="card-text"><strong>Launch Date: </strong> @item.ManufactureDate.ToString("dd MMMM yyyy")</p>
+                           <p class="card-text"><strong>Manufacturer: </strong> @item.Manufacturer.ManufacturerName</p>
+                           <p class="card-text">
+                               <strong>Status: </strong>
+                               @*check in the database if the mobile is available or not*@
+                               @if(item.MobileId != 0)
+                                {
+                                   <span class="badge bg-success text-white">Available</span>
+                                }
+                                else {
+                                   <span class="badge bg-primary text-white">Out of stock</span>
+                                }
+                           </p>
+                       </div>
+                   </div>
+                   <div class="col-md-12">
+                       <div class="card-footer">
+                           <p class="card-text">
+                               <a class="btn btn-outline-primary float-right"><i class="bi bi-eye-fill"></i>Details (detailed description)</a>
+                               <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i> Add to Cart (@item.MobilePrice.00&euro;)</a>
+                           </p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   }
 </div>

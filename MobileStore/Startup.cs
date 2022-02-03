@@ -1,3 +1,4 @@
+using DataAccessLayer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,7 @@ namespace MobileStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnectionString")));
+            services.AddScoped<IManufacturersService, ManufacturersService>();
             services.AddControllersWithViews();
         }
 

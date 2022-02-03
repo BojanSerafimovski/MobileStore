@@ -18,7 +18,11 @@ namespace MobileStore.Controllers
 
         public IActionResult Index()
         {
-            var allMobiles = _context.Mobiles.Include(x => x.Manufacturer).ToList();
+            var allMobiles = _context.Mobiles
+                .Include(x => x.Manufacturer)
+                .Include(x => x.Description)
+                .OrderByDescending(x => x.MobilePrice)
+                .ToList();
             return View(allMobiles);
         }
     }

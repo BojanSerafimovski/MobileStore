@@ -1,0 +1,50 @@
+﻿@model Manufacturer
+
+@{
+    ViewData["Title"] = "Add new mobile manufacturer";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1 class="text-center">Details for @Model.ManufacturerName</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                    <div class="form-group text-center">
+                        <img class="border-info rounded-circle" style="max-width: 250px;" id="PictureUrlPreview" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PictureUrl" class="control-label"></label>
+                        <input asp-for="PictureUrl" class="form-control" readonly/>
+                        <span asp-validation-for="PictureUrl" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ManufacturerName" class="control-label"></label>
+                        <input asp-for="ManufacturerName" class="form-control" readonly/>
+                        <span asp-validation-for="ManufacturerName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ManufacturerBiography" class="control-label"></label>
+                        <input asp-for="ManufacturerBiography" class="form-control" readonly/>
+                        <span asp-validation-for="ManufacturerBiography" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <a class="btn btn-outline-success float-right" asp-action="Edit" asp-route-id="@Model.ManufacturerId">Edit</a>
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show all manufactureres</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            var output = document.getElementById('PictureUrlPreview');
+            output.src = $("#PictureUrl").val();
+        });
+    </script>
+}
