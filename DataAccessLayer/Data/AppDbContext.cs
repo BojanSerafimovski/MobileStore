@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccessLayer.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MobileStore.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MobileStore.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -17,12 +19,6 @@ namespace MobileStore.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<Mobile>()
-            //    .HasOne(p => p.Manufacturer)
-            //    .WithMany(b => b.Mobiles)
-            //    .HasForeignKey("ManufacturerId")
-            //    .IsRequired()
-            //    .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Mobile> Mobiles { get; set; }

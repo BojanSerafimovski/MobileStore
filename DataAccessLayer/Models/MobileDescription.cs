@@ -14,5 +14,7 @@ namespace MobileStore.Models
 
         // need to target the mobile name and the manufacture date from the mobile entity
         public string Description { get; set; }
+        public string MobileDetails { get; set; }
+        public Mobile MobileModel { get; set; }
     }
 }

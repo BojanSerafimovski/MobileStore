@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccessLayer.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MobileStore.Data;
+using MobileStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +12,12 @@ namespace MobileStore.Controllers
 {
     public class MobileDescriptionController : Controller
     {
+        private readonly IMobileDescriptions _service;
         private readonly AppDbContext _context;
 
-        public MobileDescriptionController(AppDbContext context)
+        public MobileDescriptionController(IMobileDescriptions service, AppDbContext context)
         {
+            _service = service;
             _context = context;
         }
 
@@ -21,6 +25,40 @@ namespace MobileStore.Controllers
         {
             var allDescriptions = await _context.Mobiles.Include(x => x.Description).ToListAsync();
             return View(allDescriptions);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var descriptionDetails = await _service.GetByIdAsync(id);
+
+            if (descriptionDetails == null)
+            {
+                return View("NotFound");
+            }
+            return View(descriptionDetails);
+        }
+
+        // Get: Manufacturer/Edit
+        public async Task<IActionResult> Edit(int id)
+        {
+            var descriptionDetails = await _service.GetByIdAsync(id);
+            if (descriptionDetails == null)
+            {
+                return View("NotFound");
+            }
+            return View(descriptionDetails);
+        }
+
+        // Post: Add new manufacturer
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("MobileDescriptionId, MobileName, ManufactureDate, Description")] MobileDescription manufacturer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(manufacturer);
+            }
+            await _service.UpdateAsync(id, manufacturer);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

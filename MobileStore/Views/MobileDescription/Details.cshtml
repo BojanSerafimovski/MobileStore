@@ -1,0 +1,41 @@
+﻿@model MobileDescription
+
+@{
+    ViewData["Title"] = "Details about description";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1 class="text-center">Description for @Model.MobileModel.MobileName</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <div class="form-group text-center">
+                    <img class="border-info rounded-circle" style="max-width: 250px;" id="PictureUrlPreview" />
+                </div>
+                <div class="form-group">
+                    <input type="hidden" asp-for="MobileDescriptionId" />
+                    <label asp-for="MobileModel.MobileName" class="control-label"></label>
+                    <input asp-for="MobileModel.MobileName" class="form-control" readonly />
+                    <span asp-validation-for="MobileModel.MobileName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MobileModel.ManufactureDate" class="control-label"></label>
+                    <input type="date" asp-for="MobileModel.ManufactureDate.Date" class="form-control" readonly/>
+                    <span asp-validation-for="MobileModel.ManufactureDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" readonly />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    @*<a class="btn btn-outline-success float-right" asp-action="Index" asp-route-id="@Model.ManufacturerId">Edit</a>*@
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show all descriptions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

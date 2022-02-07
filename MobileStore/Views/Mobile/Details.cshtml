@@ -1,0 +1,69 @@
+﻿@model Mobile
+
+@{ 
+    ViewData["Title"] = "Mobile Details";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="card mb-12">
+            <div class="row g-0">
+                <div class="col-md-12">
+                    <div class="card-header text-white bg-info">
+                        <p class="card-text">
+                            <h5 class="card-title">
+                                @Model.MobileName
+                            </h5>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img src="@Model.MobileImage" width="100%" alt="@Model.MobileName">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body" style="margin-top: 3em;">
+                        <p class="card-text">
+                            <b>Model: </b>
+                            @Model.MobileName
+                        </p>
+                        <p class="card-text">
+                            <b>Details: </b>
+                            @Model.Description.MobileDetails
+                        </p>
+                        <p class="card-text">
+                            <b>Manufacturer: </b>
+                            @Model.Manufacturer.ManufacturerName
+                        </p>
+                        <p class="card-text">
+                            <b>Launch Date: </b>
+                            @Model.ManufactureDate.ToString("dd MMMM yyyy")
+                        </p>
+                        <p class="card-text"><b>Price: </b>@Model.MobilePrice.00&euro;</p>
+                        <p class="card-text ">
+                            @*check in the database if the mobile is available or not*@
+                            <b>Status: </b>
+                            @if (Model.MobileId != 0)
+                            {
+                                <span class="badge bg-success text-white">Available</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-primary text-white">Out of stock</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card-footer">
+                        <p class="card-text">
+                            <a class="btn btn-outline-primary" asp-action="Index">
+                                Back to List
+                            </a>
+                            <a class="btn btn-success text-white float-right"><i class="bi bi-cart-plus"></i> Add to Cart (@Model.MobilePrice.00&euro;)</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
