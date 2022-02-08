@@ -1,5 +1,5 @@
 ﻿using DataAccessLayer.Data;
-using DataAccessLayer.Models;
+using DataAccessLayer.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,8 +11,6 @@ using System.Threading.Tasks;
 
 namespace MobileStore.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class AuthenticationController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -26,17 +24,18 @@ namespace MobileStore.Controllers
             _configuration = configuration;
         }
 
+        public IActionResult Register() => View(new Register());
+
         // Registering a new user
         [HttpPost]
-        [Route("Register")]
-        public async Task<IActionResult> Register([FromBody]Register model)
+        public async Task<IActionResult> Register(Register model)
         {
+            if (!ModelState.IsValid) return View(model);
             var userExists = await userManager.FindByNameAsync(model.Username);
             if (userExists != null)
             {
-                // kreiraj view
-                //return View("UserExists");
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                TempData["Error"] = "This user name is already in use, please choose another one!";
+                return View(model);
             }
 
             ApplicationUser user = new ApplicationUser()
@@ -49,9 +48,8 @@ namespace MobileStore.Controllers
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
-                // kreiraj view
-                //return View("RegisterFail");
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                TempData["Error"] = "Your registration was unsuccessful, please make sure that your password contains one capital letter, one number and one symbol!";
+                return View(model);
             }
 
             if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
@@ -63,9 +61,9 @@ namespace MobileStore.Controllers
             {
                 await userManager.AddToRoleAsync(user, UserRoles.User);
             }
-            // kreiraj view
-            //return View("RegisterCompleted");
-            return Ok();
+
+            TempData["Success"] = "Your registration was successful, you can now login to our system!";
+            return RedirectToAction("Index", "Mobile");
         }
     }
 }

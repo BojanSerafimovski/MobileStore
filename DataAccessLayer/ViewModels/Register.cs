@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Models
+namespace DataAccessLayer.ViewModels
 {
     public class Register
     {
