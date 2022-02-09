@@ -20,11 +20,8 @@ namespace MobileStore.Models
         public double MobilePrice { get; set; }
         [Display(Name = "Picture")]
         public string MobileImage { get; set; }
-
-        // need to target the manufacturer name from the manufacturer entity
         public int? ManufacturerId { get; set; }
         public Manufacturer Manufacturer { get; set; }
-
         public int? MobileDescriptionId { get; set; }
         public MobileDescription Description { get; set; }
     }

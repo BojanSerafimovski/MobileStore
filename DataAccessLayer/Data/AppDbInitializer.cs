@@ -18,7 +18,6 @@ namespace MobileStore.Data
 
                 context.Database.EnsureCreated();
 
-                // add all the tables and fill the database from code
                 // mobiles
                 if (!context.Mobiles.Any())
                 {
