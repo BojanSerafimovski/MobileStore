@@ -24,6 +24,8 @@
                             <a class="nav-link text-dark" asp-controller="Mobile" asp-action="Index">Mobiles</a>
                         </li>
 
+                        @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        { 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Product Management
@@ -33,6 +35,7 @@
                                 <a class="dropdown-item" asp-controller="MobileDescription" asp-action="Index"><i class="fas fa-file-alt"></i>Descriptions</a>
                             </div>
                         </li>
+                        }
                     </ul>
 
                     <form class="form-inline my-2 my-lg-0" asp-controller="Mobile" asp-action="Filter" style="padding-right: 25px;">

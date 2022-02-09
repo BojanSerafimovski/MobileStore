@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Services;
+﻿using DataAccessLayer.Data;
+using DataAccessLayer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MobileStore.Data;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace MobileStore.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class ManufacturerController : Controller
     {
         private readonly IManufacturersService _service;

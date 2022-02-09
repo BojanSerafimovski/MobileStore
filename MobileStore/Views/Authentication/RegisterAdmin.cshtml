@@ -1,28 +1,27 @@
 ﻿@using DataAccessLayer.ViewModels;
 
-@model Login;
+@model RegisterAdmin;
 
 @{
-    ViewData["Title"] = "Log in to your account";
+    ViewData["Title"] = "Register as admin";
 }
 
 <div class="row">
     <div class="col-md-6 offset-3">
         <p>
-            <h4 class="text-center">Log in to your account</h4>
+            <h4 class="text-center">Register new admin</h4>
         </p>
 
         @if (TempData["Error"] != null)
         {
             <div class="col-md-12 alert alert-danger text-center">
-                <span><b>@TempData["Error"] </b></span>
+                <span><b>@TempData["Error"]</b></span>
             </div>
         }
-        
 
         <div class="row">
             <div class="col-md-8 offset-2">
-                <form asp-action="Login">
+                <form asp-action="RegisterAdmin">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
@@ -31,17 +30,22 @@
                         <span asp-validation-for="Username" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
                         <label asp-for="Password" class="control-label"></label>
                         <input asp-for="Password" class="form-control" type="password" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <input class="btn btn-outline-success float-right" type="submit" value="Log in" />
+                        <input class="btn btn-outline-success float-right" type="submit" value="Register" />
                         <a class="btn btn-outline-secondary" asp-controller="Mobile" asp-action="Index">Cancel</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    </div>
+</div>
