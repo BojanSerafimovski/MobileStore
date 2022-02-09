@@ -50,7 +50,7 @@ namespace MobileStore
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
-
+            // access denied routes
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/Authentication/AccessDenied");
