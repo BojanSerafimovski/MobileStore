@@ -11,6 +11,7 @@ namespace MobileStore.Models
     {
         [Key]
         public int MobileDescriptionId { get; set; }
+        [Required(ErrorMessage = "Please insert brief description!")]
         public string Description { get; set; }
         public string MobileDetails { get; set; }
         public Mobile MobileModel { get; set; }

@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Data;
+using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MobileStore.Models;
@@ -24,5 +25,8 @@ namespace MobileStore.Data
         public DbSet<Mobile> Mobiles { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<MobileDescription> MobileDescriptions { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
     }
 }

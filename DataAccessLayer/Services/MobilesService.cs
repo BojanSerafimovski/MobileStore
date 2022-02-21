@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using MobileStore.Data;
 using MobileStore.Models;
 using System;
@@ -17,6 +18,12 @@ namespace DataAccessLayer.Services
             _context = context;
         }
 
+        public async Task AddAsync(Mobile mobile)
+        {
+            await _context.Mobiles.AddAsync(mobile);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Mobile>> GetAllAsync()
         {
             var result = await _context.Mobiles
@@ -25,7 +32,6 @@ namespace DataAccessLayer.Services
                 .OrderByDescending(x => x.MobilePrice)
                 .ToListAsync();
             return result;
-
         }
 
         public async Task<Mobile> GetByIdAsync(int id)
@@ -35,6 +41,16 @@ namespace DataAccessLayer.Services
                 .Include(x => x.Manufacturer)
                 .FirstOrDefaultAsync(x => x.MobileId == id);
             return result;
+        }
+
+        public async Task UpdateQuantity(List<ShoppingCartItem> shoppingCartItems)
+        {
+            foreach (var item in shoppingCartItems)
+            {
+                var result = await _context.Mobiles.FirstOrDefaultAsync(x => x.MobileId == item.Mobile.MobileId);
+                result.Quantity -= item.Amount;
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

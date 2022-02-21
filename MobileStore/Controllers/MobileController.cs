@@ -1,7 +1,10 @@
 ﻿using DataAccessLayer.Services;
+using DataAccessLayer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MobileStore.Data;
+using MobileStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +28,39 @@ namespace MobileStore.Controllers
             var allMobiles = await _service.GetAllAsync();
             return View(allMobiles);
         }
+
+        public IActionResult Create()
+        {
+            ViewBag.Manufacturers = _context.Manufacturers
+                .Select(i => new SelectListItem
+                {
+                    Value = i.ManufacturerId.ToString(),
+                    Text = i.ManufacturerName
+                }).ToList();
+            return View();
+        }
+
+        // Post: Add new manufacturer
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("MobileName, Description, MobilePrice, ManufactureDate, ManufacturerId, MobileImage, Quantity")] Mobile mobile)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Manufacturers = _context.Manufacturers
+                    .Select(i => new SelectListItem
+                    {
+                        Value = i.ManufacturerId.ToString(),
+                        Text = i.ManufacturerName
+                    }).ToList();
+                return View(mobile);
+            }
+            else
+            {
+                await _service.AddAsync(mobile);
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
 
         // Search bar filtering
         public async Task<IActionResult> Filter(string searchString)

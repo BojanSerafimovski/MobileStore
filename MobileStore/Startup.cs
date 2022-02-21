@@ -1,4 +1,5 @@
 using DataAccessLayer.Data;
+using DataAccessLayer.Models;
 using DataAccessLayer.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -39,6 +40,11 @@ namespace MobileStore
             services.AddScoped<IManufacturersService, ManufacturersService>();
             services.AddScoped<IMobilesService, MobilesService>();
             services.AddScoped<IMobileDescriptions, MobileDescriptions>();
+            services.AddScoped<IOrdersService, OrdersService>();
+
+            // for shopping cart
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
             // identity
             services.AddIdentity<ApplicationUser, IdentityRole>()

@@ -15,61 +15,82 @@
                 </h3>
             </div>
         }
-        </div>
+        else
+        {
+            <div class="col-md-12 text-center" style="background-color: #f8d7da; border-color: #c3e6cb; margin: 1em 0;">
+                <h3>
+                    <span><b>@TempData["Error"]</b></span>
+                </h3>
+            </div>
+        }
     </div>
+</div>
 
-        <div class="row">
-            @foreach (var item in Model)
-            {
-                <div class="col-md-4 col-xs-6 border-primary mb-3">
-                    <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-12">
-                                <div class="card-header text-white bg-info">
-                                    <p class="card-text">
-                                        <h5 class="card-title">
-                                            @*Populating the Mobile Name*@
-                                            @item.MobileName
-                                            <a class="text-white float-right"><i class="bi bi-pencil-square"></i></a>
-                                        </h5>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                @*Populating the image division for the mobiles*@
-                                <img src="@item.MobileImage" width="100%" alt="@item.MobileName" />
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card-body">
-                                    @*Populating the data from the database*@
-                                    <p class="card-text">@item.Description.Description</p>
-                                    <p class="card-text"><strong>Price:</strong> @item.MobilePrice.00&euro;</p>
-                                    <p class="card-text"><strong>Launch Date: </strong> @item.ManufactureDate.ToString("dd MMMM yyyy")</p>
-                                    <p class="card-text"><strong>Manufacturer: </strong> @item.Manufacturer.ManufacturerName</p>
-                                    <p class="card-text">
-                                        <strong>Status: </strong>
-                                        @*check in the database if the mobile is available or not*@
-                                        @if (item.MobileId != 0)
-                                        {
-                                            <span class="badge bg-success text-white">Available</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-primary text-white">Out of stock</span>
-                                        }
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="card-footer">
-                                    <p class="card-text">
-                                        <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.MobileId"><i class="bi bi-eye-fill"></i> Details</a>
-                                        <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i> Add to Cart (@item.MobilePrice.00&euro;)</a>
-                                    </p>
-                                </div>
-                            </div>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @*Populating the Mobile Name*@
+                                    @item.MobileName
+                                    <a class="text-white float-right"><i class="bi bi-pencil-square"></i></a>
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        @*Populating the image division for the mobiles*@
+                        <img src="@item.MobileImage" width="100%" alt="@item.MobileName" />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            @*Populating the data from the database*@
+                            <p class="card-text">@item.Description.Description</p>
+                            <p class="card-text"><strong>Price:</strong> @item.MobilePrice.00&euro;</p>
+                            <p class="card-text"><strong>Launch Date: </strong> @item.ManufactureDate.ToString("dd MMMM yyyy")</p>
+                            <p class="card-text"><strong>Manufacturer: </strong> @item.Manufacturer.ManufacturerName</p>
+                            <p class="card-text">
+                                <strong>Status: </strong>
+                                @*check in the database if the mobile is available or not*@
+                                @if (item.Quantity != 0)
+                                {
+                                    <span class="badge bg-success text-white">Available</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary text-white">Out of stock</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.MobileId"><i class="bi bi-eye-fill"></i> Details</a>
+                                @if (item.Quantity != 0)
+                                {
+                                    <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.MobileId"><i class="bi bi-cart-plus"></i> Add to Cart (@item.MobilePrice.00&euro;)</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary text-white"><i class="bi bi-emoji-frown"></i> Product Not Available</a>
+                                }
+                            </p>
                         </div>
                     </div>
                 </div>
-            }
+            </div>
         </div>
+    }
+</div>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+<div style="position: fixed; right: 30px; bottom:  30px; z-index: 100;" class="text-white">
+    <a asp-controller="Mobile" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add New Mobile</a>
+</div>
+}

@@ -1,0 +1,102 @@
+﻿@using DataAccessLayer.ViewModels;
+@model ProceedOrderViewModel;
+
+@{
+    ViewData["Title"] = "Proceed order";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="text-center" style="margin-bottom: 3em;">
+            <h2>Complete your order</h2>
+        </div>
+        @if (TempData["Error"] != null)
+        {
+            <div class="col-md-12 alert alert-danger text-center">
+                <span><b>@TempData["Error"] </b></span>
+            </div>
+        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Selected amount</th>
+                    <th>Mobile</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+                {
+                    <tr>
+                        <td class="align-middle">@item.Amount</td>
+                        <td class="align-middle">@item.Mobile.MobileName</td>
+                        <td class="align-middle">@item.Mobile.MobilePrice.00&euro;</td>
+                        <td class="align-middle">@((item.Amount*item.Mobile.MobilePrice)).00&euro;</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td><b>Total:</b></td>
+                    <td>
+                        @Model.Total.00&euro;
+                    </td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-controller="Orders" asp-action="CompleteOrder">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="NameSurname" class="control-label"></label>
+                        <input type="text" asp-for="NameSurname" class="form-control" required/>
+                        <span asp-validation-for="NameSurname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input type="text" asp-for="Email" class="form-control" readonly />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Telephone" class="control-label"></label>
+                        <input type="text" asp-for="Telephone" class="form-control" required/>
+                        <span asp-validation-for="Telephone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input type="text" asp-for="Address" class="form-control" required />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Subject" class="control-label"></label>
+                        <input type="text" asp-for="Subject" class="form-control" value="Order Confirmation" readonly />
+                        <span asp-validation-for="Subject" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="text text-center">
+                            <div class="btn-group">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <input type="submit" class="btn btn-outline-primary float-right" style="margin-left: 1em;" value="Complete Order" asp-controller="Orders" asp-action="CompleteOrder" />
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary float-right text-white" style="margin-left: 1em;" asp-controller="Authentication" asp-action="Login">
+                                        In order to proceed, please login to your account!
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,9 +11,9 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Mobile" asp-action="Index">E-Store</a>
+                <a class="navbar-brand" style="text-shadow: 0.5px 1px 0.5px #28a745;" asp-controller="Mobile" asp-action="Index"><i class="bi bi-house-door"></i></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,27 +21,31 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="navbar-nav flex-grow-1">
-                            <a class="nav-link text-dark" asp-controller="Mobile" asp-action="Index">Mobiles</a>
+                            <a class="nav-link text-white" asp-controller="Mobile" asp-action="Index">Mobiles</a>
                         </li>
 
-                        @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                        { 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Product Management
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-controller="Manufacturer" asp-action="Index"><i class="fas fa-cog"></i>Manufacturers</a>
-                                <a class="dropdown-item" asp-controller="MobileDescription" asp-action="Index"><i class="fas fa-file-alt"></i>Descriptions</a>
-                            </div>
-                        </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Product Management
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-controller="Manufacturer" asp-action="Index"><i class="fas fa-cog"></i>Manufacturers</a>
+                                    <a class="dropdown-item" asp-controller="MobileDescription" asp-action="Index"><i class="fas fa-file-alt"></i>Descriptions</a>
+                                </div>
+                            </li>
                         }
                     </ul>
 
                     <form class="form-inline my-2 my-lg-0" asp-controller="Mobile" asp-action="Filter" style="padding-right: 25px;">
                         <input name="searchString" type="text" class="form-control" placeholder="Search for a mobile.." aria-label="Recipient's username" aria-describedby="button-addon2" />
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                        <button class="btn btn-success my-2 my-sm-0 text-white" type="submit"><i class="bi bi-search"></i></button>
                     </form>
+
+                    <ul class="navbar-nav">
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                    </ul>
 
                     <partial name="_Identity.cshtml" />
 
@@ -55,9 +59,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - MobileStore
+    <footer class="border-top footer text-muted bg-dark">
+        <div class="container text-white">
+            &copy; 2022 - Mobile Store
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Data;
+using DataAccessLayer.Services;
 using DataAccessLayer.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,13 +23,15 @@ namespace MobileStore.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IConfiguration _configuration;
+        private readonly ShoppingCart _shoppingCart;
 
-        public AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
+        public AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration, ShoppingCart shoppingCart)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.signInManager = signInManager;
             _configuration = configuration;
+            _shoppingCart = shoppingCart;
         }
 
         public IActionResult Register() => View(new Register());
@@ -159,14 +162,17 @@ namespace MobileStore.Controllers
             return View(model);
         }
 
+        // Logout
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+            await _shoppingCart.ClearShoppingCartAsync();
             TempData["Success"] = "Thank you for using our services, till next time!";
             return RedirectToAction("Index", "Mobile");
         }
 
+        // Access denied
         public IActionResult AccessDenied(string returnUrl)
         {
             return View();

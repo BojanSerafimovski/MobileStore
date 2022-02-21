@@ -24,12 +24,14 @@ namespace MobileStore.Controllers
             _context = context;
         }
 
+        // Get: all
         public async Task <IActionResult> Index()
         {
             var allDescriptions = await _context.Mobiles.Include(x => x.Description).ToListAsync();
             return View(allDescriptions);
         }
 
+        // Get: Description/Details/id
         public async Task<IActionResult> Details(int id)
         {
             var descriptionDetails = await _service.GetByIdAsync(id);
@@ -41,7 +43,7 @@ namespace MobileStore.Controllers
             return View(descriptionDetails);
         }
 
-        // Get: Manufacturer/Edit
+        // Get: Description/Edit/id
         public async Task<IActionResult> Edit(int id)
         {
             var descriptionDetails = await _service.GetByIdAsync(id);

@@ -1,0 +1,83 @@
+﻿@model Mobile
+
+@{
+    ViewData["Title"] = "Add new mobile phone";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1 class="text-center">Add a new mobile phone</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create">
+                    <input type="hidden" asp-for="Manufacturer.ManufacturerId" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group text-center">
+                        <img class="border-info rounded-circle" style="max-width: 250px;" id="PictureUrlPreview" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MobileName" class="control-label"></label>
+                        <input asp-for="MobileName" class="form-control" />
+                        <span asp-validation-for="MobileName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ManufactureDate" class="control-label"></label>
+                        <input asp-for="ManufactureDate" class="form-control" />
+                        <span asp-validation-for="ManufactureDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MobilePrice" class="control-label"></label>
+                        <input asp-for="MobilePrice" class="form-control" />
+                        <span asp-validation-for="MobilePrice" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MobileImage" class="control-label"></label>
+                        <input asp-for="MobileImage" class="form-control" />
+                        <span asp-validation-for="MobileImage" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Manufacturer" class="control-label"></label>
+                        <select asp-for="ManufacturerId" asp-items="ViewBag.Manufacturers" class="form-control">
+                            <option selected disabled>Choose the manufacturer</option>
+                        </select>
+                        <span asp-validation-for="ManufacturerId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description.Description" class="control-label"></label>
+                        <input asp-for="Description.Description" class="form-control" />
+                        <span asp-validation-for="Description.Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Quantity" class="control-label"></label>
+                        <input asp-for="Quantity" class="form-control" />
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add" class="btn btn-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show all mobiles</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            var output = document.getElementById('PictureUrlPreview');
+            output.src = $("#MobileImage").val();
+        });
+
+        $("#MobileImage").on("change", function () {
+            var output = document.getElementById('PictureUrlPreview');
+            output.src = $(this).val();
+        });
+    </script>
+}
